@@ -42,3 +42,14 @@ A CI testa apenas a **estrutura do plano**. Não consulta APIs, não lê ou escr
 - [μWRITE ledger](https://docs.google.com/document/d/1NEU7lg7iUZf1u7lX-SEKuc-knSDGlF5gOx7qzXcJ1yc/edit)
 
 [Catálogo tipado](config/setup-catalog.v1.json) — nomes de controls/credentials são **metadados**, jamais provas de presença. O repositório produtor governa implementação, o Drive governa memória e recibos. **Licença MIT original permanece preservada.**
+
+## Ω V2 — Lacunas tipadas e proveniência
+
+A [matriz de lacunas](config/gap-register.v1.json) liga **18 controles** ao motivo de incerteza, à fonte observada e ao experimento mínimo que pode falsificá-la. O [guia de proveniência](docs/PROVENIENCIA_E_LACUNAS.md) explica os limites dos fatos do GitHub e o [validador offline](tools/check_gaps.py) verifica a cobertura 1:1.
+
+```bash
+python3 tools/check_gaps.py
+python3 -m unittest discover -s tests -v
+```
+
+**Atenção:** `OPEN_OBSERVED` não significa resolvido. A configuração de proteção do SETUP e do Mapa ainda requer operador nativo, revisão independente, readback e teste negativo do servidor. CI verde aqui valida só o modelo de lacunas.
