@@ -19,6 +19,22 @@ class TestGapGate(unittest.TestCase):
         incomplete = dict(G, items=G["items"][:-1])
         self.assertTrue(validate(C, incomplete))
 
+    def test_invalid_status(self):
+        rows = [dict(item) for item in G["items"]]
+        rows[0]["state"] = "UNVERIFIED_PASS"
+        self.assertTrue(validate(C, dict(G, items=rows)))
+
+    def test_dangling_reference(self):
+        rows = [dict(item) for item in G["items"]]
+        rows[0]["source"] = "https://invalid.example/receipt"
+        self.assertTrue(validate(C, dict(G, items=rows)))
+
+    def test_empty_falsifier(self):
+        rows = [dict(item) for item in G["items"]]
+        rows[0]["minimum_falsifier"] = ""
+        self.assertTrue(validate(C, dict(G, items=rows)))
+
+
 
 if __name__ == "__main__":
     unittest.main()
