@@ -1,0 +1,152 @@
+{
+  "schema": "RAFAELIA_TYPED_GAPS_V1",
+  "captured_date": "2026-10-11",
+  "scope": "OBSERVATION_ONLY_NO_PROVIDER_WRITE",
+  "claim_allowed": false,
+  "items": [
+    {
+      "control_id": "GH_MAIN_RULESET",
+      "state": "OPEN_OBSERVED",
+      "cause": "PROVIDER_ENFORCEMENT_DISABLED",
+      "source": "https://github.com/rafaelmeloreisnovo/Mapa/settings/rules",
+      "minimum_falsifier": "Admin: enable protected main; demonstrate server rejection of unapproved PR.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "GH_BYPASS_AUDIT",
+      "state": "PARTIAL_OBSERVED",
+      "cause": "BYPASS_REVIEW_PENDING",
+      "source": "https://github.com/rafaelmeloreisnovo/Mapa/settings/rules",
+      "minimum_falsifier": "Admin: identify and justify integration exceptions.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "GH_INDEPENDENT_REVIEW",
+      "state": "OPEN_OBSERVED",
+      "cause": "REVIEW_NOT_OBSERVED",
+      "source": "https://github.com/rafaelmeloreisnovo/Mapa/pull/750",
+      "minimum_falsifier": "Get independent submitted review at exact HEAD.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "GH_LEAST_PRIVILEGE",
+      "state": "TOKEN_VAZIO",
+      "cause": "EFFECTIVE_PERMISSIONS_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Inspect effective Actions permission, not just workflow source.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "CODESCAN_AUTH",
+      "state": "TOKEN_VAZIO",
+      "cause": "CREDENTIAL_PROVIDER_UNKNOWN",
+      "source": null,
+      "minimum_falsifier": "Privileged operator: prove credential presence without its value.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "CODESCAN_ORG",
+      "state": "TOKEN_VAZIO",
+      "cause": "CREDENTIAL_PROVIDER_UNKNOWN",
+      "source": null,
+      "minimum_falsifier": "Privileged operator: prove credential presence without its value.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "CODESCAN_PROJECT",
+      "state": "TOKEN_VAZIO",
+      "cause": "CREDENTIAL_PROVIDER_UNKNOWN",
+      "source": null,
+      "minimum_falsifier": "Privileged operator: prove credential presence without its value.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "PAT_AGENTS_LEGACY",
+      "state": "TOKEN_VAZIO",
+      "cause": "LEGACY_TOKEN_SCOPE_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Assess necessity, scope, expiration and revocation.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "PAT_ACTIONS_LEGACY",
+      "state": "TOKEN_VAZIO",
+      "cause": "LEGACY_TOKEN_SCOPE_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Assess necessity, scope, expiration and revocation.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "SETUP_MODE_VAR",
+      "state": "TOKEN_VAZIO",
+      "cause": "VARIABLE_NOT_READ_BACK",
+      "source": null,
+      "minimum_falsifier": "Verify nonconfidential variable at correct target.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "DRIVE_OAUTH_SCOPE",
+      "state": "TOKEN_VAZIO",
+      "cause": "OAUTH_CONSENT_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Verify Google OAuth consent and approved scopes.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "DRIVE_ACCOUNT_LOCATOR",
+      "state": "TOKEN_VAZIO",
+      "cause": "ACCOUNT_REVISION_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Validate account, file ID, revision and sharing.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "DRIVE_MUWRITE",
+      "state": "TOKEN_VAZIO",
+      "cause": "READBACK_PER_TARGET_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Verify append-only receipt for this control.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "RIGHTS_LICENSE",
+      "state": "TOKEN_VAZIO",
+      "cause": "PRODUCER_RIGHTS_CHAIN_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Verify each source producer's license and permissions.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "SCANNER_SARIF",
+      "state": "TOKEN_VAZIO",
+      "cause": "SARIF_NOT_PROVEN",
+      "source": null,
+      "minimum_falsifier": "Require analyzer success and nonempty SARIF on exact HEAD.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "RELEASE_APPROVAL",
+      "state": "TOKEN_VAZIO",
+      "cause": "RELEASE_AUTHORITY_UNVERIFIED",
+      "source": null,
+      "minimum_falsifier": "Require independently authorized artifact + rollback.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "SETUP_MAIN_RULESET",
+      "state": "OPEN_OBSERVED",
+      "cause": "PROVIDER_ENFORCEMENT_DISABLED",
+      "source": "https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA",
+      "minimum_falsifier": "Enable branch protection with real required checks and negative rejection proof.",
+      "decision": "HOLD"
+    },
+    {
+      "control_id": "SETUP_INDEPENDENT_REVIEW",
+      "state": "OPEN_OBSERVED",
+      "cause": "REVIEW_NOT_OBSERVED",
+      "source": "https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA/pull/1",
+      "minimum_falsifier": "Require real reviewer distinct from author on future PRs.",
+      "decision": "HOLD"
+    }
+  ]
+}
