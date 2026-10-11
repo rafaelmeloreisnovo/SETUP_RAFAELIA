@@ -281,6 +281,38 @@
       "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
       "manual_only": true,
       "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "SETUP_MAIN_RULESET",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "SETUP_MAIN_RULESET",
+      "target": "rafaelmeloreisnovo/SETUP_RAFAELIA",
+      "operator": "repo_admin",
+      "evidence_rule": "Provider confirms protected branch, enforced checks and server denial of unapproved benign merge.",
+      "depends_on": [],
+      "privacy_class": "metadata",
+      "rollback": "Authorized scoped restoration, preserve records",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "SETUP_INDEPENDENT_REVIEW",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "SETUP_DISTINCT_REVIEW",
+      "target": "rafaelmeloreisnovo/SETUP_RAFAELIA",
+      "operator": "independent_reviewer",
+      "evidence_rule": "Distinct eligible approval on exact new PR HEAD with server rule enforced.",
+      "depends_on": [
+        "SETUP_MAIN_RULESET"
+      ],
+      "privacy_class": "metadata",
+      "rollback": "Re-request review, maintain history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
     }
   ]
 }
