@@ -25,6 +25,8 @@ jobs:
           persist-credentials: false
       - name: Validate catalog fail-closed
         run: python3 tools/validate_setup.py
+      - name: Check typed gap coverage and authority boundary
+        run: python3 tools/check_gaps.py
       - name: Synthetic negative falsifiers
         run: python3 -m unittest discover -s tests -v
       - name: State scope
