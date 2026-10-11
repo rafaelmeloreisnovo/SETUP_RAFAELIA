@@ -25,6 +25,9 @@
 
 `SOURCE ≠ ARTIFACT ≠ EXECUTION ≠ EVIDENCE ≠ CLAIM` · `TOKEN_VAZIO ≠ 0` · `IMPLEMENTED_UNTESTED ≠ PASS`.
 
+### Assistente de gavetas (sem tocar em settings)
+Execute `python3 tools/setup_wizard.py` para ver as seis gavetas ou `python3 tools/setup_wizard.py --control GH_MAIN_RULESET` para obter o cartão de prova do controle. Para listar todos: `--list`. Nenhuma entrada de senha é solicitada.
+
 ### Verificação somente de leitura
 Exige Python 3.11+ sem bibliotecas externas:
 ```bash
