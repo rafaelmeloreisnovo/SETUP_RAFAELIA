@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "repository": "rafaelmeloreisnovo/SETUP_RAFAELIA",
+    "mode": "PLAN_ONLY",
+    "global_claim_allowed": false,
+    "policy": "NO_SECRET_VALUES_OR_PROVIDER_WRITES",
+    "license": "MIT_original_preserved"
+  },
+  "drawers": [
+    "00_ENTRADA",
+    "01_DIREITOS_PRIVACIDADE",
+    "02_QUALIDADE_SEGURANCA",
+    "03_COFRE_IDENTIDADE",
+    "04_INTEGRACOES",
+    "05_EVIDENCIAS_OPERACAO"
+  ],
+  "source_pins": {
+    "start_here": "https://docs.google.com/document/d/1T4OIN2RC1I-KFsdaQTCqieeZUGYBXissWrdrZMG0DN8/edit",
+    "current_state": "https://docs.google.com/document/d/1d0J5SkF2S2emBq6jLuTkhYVaSOQiWazJWyRCTMJ-iRI/edit",
+    "muwrite_ledger": "https://docs.google.com/document/d/1NEU7lg7iUZf1u7lX-SEKuc-knSDGlF5gOx7qzXcJ1yc/edit"
+  },
+  "controls": [
+    {
+      "id": "GH_MAIN_RULESET",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "MAIN_RULESET",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "repo_admin",
+      "evidence_rule": "provider readback: active branch protection required checks reviewer and safe negative rejection",
+      "depends_on": [],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "GH_BYPASS_AUDIT",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "BYPASS_INTEGRATIONS",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "repo_admin",
+      "evidence_rule": "readback actor identities privileges expiry and reason plus change receipt",
+      "depends_on": [
+        "GH_MAIN_RULESET"
+      ],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "GH_INDEPENDENT_REVIEW",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "DISTINCT_APPROVED_REVIEW",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "review_owner",
+      "evidence_rule": "eligible different human reviewer approvals on exact SHA",
+      "depends_on": [
+        "GH_MAIN_RULESET"
+      ],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "GH_LEAST_PRIVILEGE",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "WORKFLOW_PERMISSIONS",
+      "target": "rafaelmeloreisnovo/SETUP_RAFAELIA",
+      "operator": "repo_admin",
+      "evidence_rule": "workflow permissions contents read and immutable action pin on exact SHA",
+      "depends_on": [],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "CODESCAN_AUTH",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "SECRET",
+      "name": "CODESCAN_AUTH_TOKEN",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "credential_owner",
+      "evidence_rule": "PRESENT name without value; full analyzer nonempty SARIF terminal upload",
+      "depends_on": [
+        "GH_LEAST_PRIVILEGE"
+      ],
+      "privacy_class": "confidential",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "CODESCAN_ORG",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "SECRET",
+      "name": "CODESCAN_ORGANIZATION_KEY",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "credential_owner",
+      "evidence_rule": "PRESENT name without value and SARIF receipt",
+      "depends_on": [
+        "CODESCAN_AUTH"
+      ],
+      "privacy_class": "confidential",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "CODESCAN_PROJECT",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "SECRET",
+      "name": "CODESCAN_PROJECT_KEY",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "credential_owner",
+      "evidence_rule": "PRESENT name without value and SARIF receipt",
+      "depends_on": [
+        "CODESCAN_AUTH"
+      ],
+      "privacy_class": "confidential",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "PAT_AGENTS_LEGACY",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "SECRET",
+      "name": "PAT_AGENTS",
+      "target": "rafaelmeloreisnovo/RafGitTools",
+      "operator": "credential_owner",
+      "evidence_rule": "prove necessity scope owner expiration before using legacy PAT",
+      "depends_on": [],
+      "privacy_class": "confidential",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "PAT_ACTIONS_LEGACY",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "SECRET",
+      "name": "PAT_ACTIONS",
+      "target": "rafaelmeloreisnovo/RafGitTools",
+      "operator": "credential_owner",
+      "evidence_rule": "prove necessity scope owner expiration before using legacy PAT",
+      "depends_on": [],
+      "privacy_class": "confidential",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "SETUP_MODE_VAR",
+      "drawer": "03_COFRE_IDENTIDADE",
+      "provider": "github",
+      "kind": "VARIABLE",
+      "name": "RAFAELIA_SETUP_MODE",
+      "target": "rafaelmeloreisnovo/SETUP_RAFAELIA",
+      "operator": "repo_admin",
+      "evidence_rule": "provider readback nonsecret PLAN_ONLY setting only if chosen",
+      "depends_on": [],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "DRIVE_OAUTH_SCOPE",
+      "drawer": "04_INTEGRACOES",
+      "provider": "google_drive",
+      "kind": "OAUTH_SCOPE",
+      "name": "DRIVE_FILE",
+      "target": "authorized_cloud_project",
+      "operator": "oauth_owner",
+      "evidence_rule": "OAuth consent declared scopes and account purpose verified",
+      "depends_on": [],
+      "privacy_class": "restricted_metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "DRIVE_ACCOUNT_LOCATOR",
+      "drawer": "04_INTEGRACOES",
+      "provider": "google_drive",
+      "kind": "SETTING",
+      "name": "ACCOUNT_FILE_REVISION",
+      "target": "authorized_drive_account",
+      "operator": "drive_custodian",
+      "evidence_rule": "verified account ID file ID revision privacy and sharing",
+      "depends_on": [
+        "DRIVE_OAUTH_SCOPE"
+      ],
+      "privacy_class": "restricted_metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "DRIVE_MUWRITE",
+      "drawer": "05_EVIDENCIAS_OPERACAO",
+      "provider": "google_drive",
+      "kind": "RECEIPT",
+      "name": "APPEND_ONLY_RECEIPT",
+      "target": "canonical_ledger",
+      "operator": "drive_custodian",
+      "evidence_rule": "append guarded by document revision plus readback no deletes",
+      "depends_on": [
+        "DRIVE_ACCOUNT_LOCATOR"
+      ],
+      "privacy_class": "restricted_metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "RIGHTS_LICENSE",
+      "drawer": "01_DIREITOS_PRIVACIDADE",
+      "provider": "github",
+      "kind": "RIGHTS",
+      "name": "LICENSE_PROVENANCE",
+      "target": "each_producer",
+      "operator": "rights_owner",
+      "evidence_rule": "upstream ownership license and redistributable scope verified",
+      "depends_on": [],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "SCANNER_SARIF",
+      "drawer": "02_QUALIDADE_SEGURANCA",
+      "provider": "github",
+      "kind": "EXECUTION",
+      "name": "FULL_CODESCAN_SARIF",
+      "target": "rafaelmeloreisnovo/Mapa",
+      "operator": "independent_reviewer",
+      "evidence_rule": "analyzer executed nonempty SARIF upload completed exact SHA",
+      "depends_on": [
+        "CODESCAN_AUTH",
+        "CODESCAN_ORG",
+        "CODESCAN_PROJECT"
+      ],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    },
+    {
+      "id": "RELEASE_APPROVAL",
+      "drawer": "05_EVIDENCIAS_OPERACAO",
+      "provider": "github",
+      "kind": "SETTING",
+      "name": "RELEASE_GOVERNANCE",
+      "target": "each_producer",
+      "operator": "release_owner",
+      "evidence_rule": "review+signature+artifact digest+physical receipt+rollback",
+      "depends_on": [
+        "GH_INDEPENDENT_REVIEW",
+        "SCANNER_SARIF"
+      ],
+      "privacy_class": "metadata",
+      "rollback": "Operator-authorized scoped reversal or successor receipt; preserve history",
+      "manual_only": true,
+      "state": "TOKEN_VAZIO"
+    }
+  ]
+}

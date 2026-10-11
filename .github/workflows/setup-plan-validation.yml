@@ -1,0 +1,31 @@
+name: Setup RAFAELIA - offline read-only gate
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'AGENTS.md'
+      - 'LICENSE'
+      - '.github/workflows/setup-plan-validation.yml'
+      - 'config/**'
+      - 'docs/**'
+      - 'tools/**'
+      - 'tests/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    name: plan-and-negative-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout, no persisted credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0, Node 24, pinned official tag
+        with:
+          persist-credentials: false
+      - name: Validate catalog fail-closed
+        run: python3 tools/validate_setup.py
+      - name: Synthetic negative falsifiers
+        run: python3 -m unittest discover -s tests -v
+      - name: State scope
+        run: echo "CI PASS only for offline plan; no provider settings, secrets, Drive permissions or runtime activated."
