@@ -2,8 +2,8 @@
 """RAFAELIA catalog v0: host-side hash inventory only. NOT signature verification."""
 import argparse
 import hashlib
+import hmac
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -99,7 +99,7 @@ def verify(args):
     if a["name"] != p.name or type(a["size"]) is not int or a["size"] != p.stat().st_size:
         raise Invalid("artifact metadata mismatch")
     require_hex(a["sha256"], HEX64, "artifact sha256")
-    if not hashlib.compare_digest(a["sha256"], digest(p)) if hasattr(hashlib, "compare_digest") else a["sha256"] != digest(p):
+    if not hmac.compare_digest(a["sha256"], digest(p)):
         raise Invalid("artifact hash mismatch")
     if not isinstance(m["toolchain"], dict) or set(m["toolchain"]) != {"name", "sha256"}:
         raise Invalid("toolchain schema mismatch")
