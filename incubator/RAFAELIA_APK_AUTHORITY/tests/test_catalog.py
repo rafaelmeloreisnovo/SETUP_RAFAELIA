@@ -47,7 +47,7 @@ class CatalogTests(unittest.TestCase):
 
     def test_payload_tampering_fails(self):
         self.assertEqual(self.record().returncode, 0)
-        self.path.write_bytes(self.path.read_bytes() + b"evil")
+        self.path.write_bytes(b"X" + self.path.read_bytes()[1:])
         self.assertEqual(self.verify("--hash-only").returncode, 2)
 
     def test_source_identity_mismatch_fails(self):
