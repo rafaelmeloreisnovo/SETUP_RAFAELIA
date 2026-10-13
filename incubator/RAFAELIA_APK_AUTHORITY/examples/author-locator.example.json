@@ -1,0 +1,8 @@
+{
+  "schema": "rafaelia.author-locator.v0",
+  "public_author_page": "https://github.com/rafaelmeloreisnovo",
+  "release_attestation_uri": "TOKEN_VAZIO",
+  "licensing_evidence": "TOKEN_VAZIO",
+  "privacy": "NO_USER_TELEMETRY",
+  "claim_allowed": false
+}
