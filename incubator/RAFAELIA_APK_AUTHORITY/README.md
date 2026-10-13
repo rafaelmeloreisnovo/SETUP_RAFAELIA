@@ -1,12 +1,12 @@
 # RAFAELIA APK Authority — candidate standalone repository
 
-**Status:** SOURCE_CANDIDATE / NOT_A_RELEASE / NO_MERGE. Source boundary: \`SETUP_RAFAELIA\` incubator; intended producer: future independent \`RAFAELIA-APK-AUTHORITY\` repository. Existing \`apk-guardian-rafaelia\` remains the static inspection consumer, not a signing authority.
+**Status:** SOURCE_CANDIDATE / NOT_A_RELEASE / NO_MERGE. Source boundary: `SETUP_RAFAELIA` incubator; intended producer: future independent `RAFAELIA-APK-AUTHORITY` repository. Existing `apk-guardian-rafaelia` remains the static inspection consumer, not a signing authority.
 
 ## Purpose
 
 Versioned, dependency-free-at-Python-package-level *host-side* release inventory and SHA-256 integrity probe for APK/AAB/compiler/ELF artifacts, an auditable signing policy and exact-head falsification tests. This is **not** an Android APK signer, not a freestanding compiler, not a Play Console connector, not legal registration of authorship, and not SLSA certification.
 
-Boundary: \`SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM\`; \`IMPLEMENTED_UNTESTED != PASS\`; \`TOKEN_VAZIO != 0\`.
+Boundary: `SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM`; `IMPLEMENTED_UNTESTED != PASS`; `TOKEN_VAZIO != 0`.
 
 ## Dependency ledger
 
@@ -26,7 +26,7 @@ All stages default FAIL_CLOSED. A green local hash test cannot approve release.
 
 ## Commands (untrusted metadata; never a signed assertion)
 
-\`\`\`bash
+```bash
 python3 incubator/RAFAELIA_APK_AUTHORITY/catalog.py record path/to/app.apk \
   --source-commit 0123456789abcdef0123456789abcdef01234567 \
   --author-uri https://github.com/rafaelmeloreisnovo \
@@ -41,15 +41,15 @@ python3 incubator/RAFAELIA_APK_AUTHORITY/catalog.py verify path/to/app.apk \
   --hash-only
 
 python3 -m unittest discover -s incubator/RAFAELIA_APK_AUTHORITY/tests -v
-\`\`\`
+```
 
-Without \`--hash-only\`, verification deliberately returns \`NOT_VERIFIED_SIGNER\` (exit 3). Hash-only \`PASS\` is never permission to publish. Do not put .jks, .p12, private keys, Google credentials, personal/device identifiers, or secrets in source/artifacts.
+Without `--hash-only`, verification deliberately returns `NOT_VERIFIED_SIGNER` (exit 3). Hash-only `PASS` is never permission to publish. Do not put .jks, .p12, private keys, Google credentials, personal/device identifiers, or secrets in source/artifacts.
 
 ## Cryptographic lastro / author page
 
-An \`assets/rafaelia.author.json\` identity locator may be included **before APK signing**, with public owner URL, identity key reference, license and build intent. An external **signed, independently retained attestation** must bind the final APK SHA-256 to the author identity key and release/source tree (e.g. DSSE/in-toto), with transparency or independent custody. The Android APK signature protects the installed payload; the Google Play certificate must be verified against Play Console details. A copied APK can always be modified or have attribution text stripped by someone controlling it; tampering must be detectable *against trusted signed evidence* rather than claimed impossible.
+An `assets/rafaelia.author.json` identity locator may be included **before APK signing**, with public owner URL, identity key reference, license and build intent. An external **signed, independently retained attestation** must bind the final APK SHA-256 to the author identity key and release/source tree (e.g. DSSE/in-toto), with transparency or independent custody. The Android APK signature protects the installed payload; the Google Play certificate must be verified against Play Console details. A copied APK can always be modified or have attribution text stripped by someone controlling it; tampering must be detectable *against trusted signed evidence* rather than claimed impossible.
 
-\`artifact-level public marker != legally proven authorship\`. Cryptographic attestation on unsigned JSON = TOKEN_VAZIO until signature and trusted identity verification are actually run.
+`artifact-level public marker != legally proven authorship`. Cryptographic attestation on unsigned JSON = TOKEN_VAZIO until signature and trusted identity verification are actually run.
 
 ## Authority
-See \`governance/CONTROL_MATRIX.md\`, \`governance/SIGNING_BOUNDARY.md\`, \`research/GEOMETRY_ROUTE.md\`. No merge or Google Play upload until independent review, exact-head CI, provider rulesets readback, real APK signing, Play-signed binary readback, privacy/children checks, and legal/license review. The original SETUP MIT license stays unchanged; independent rights require legal evidence.
+See `governance/CONTROL_MATRIX.md`, `governance/SIGNING_BOUNDARY.md`, `research/GEOMETRY_ROUTE.md`. No merge or Google Play upload until independent review, exact-head CI, provider rulesets readback, real APK signing, Play-signed binary readback, privacy/children checks, and legal/license review. The original SETUP MIT license stays unchanged; independent rights require legal evidence.
