@@ -1,0 +1,147 @@
+{
+  "schema": "rafaelia.omega-drive-librarian-plan/v1",
+  "status": "IMPLEMENTED_L0_CANDIDATE__HOST_DRIVE_ADAPTER_NOT_IMPLEMENTED",
+  "mode": "OFFLINE_PLAN_ONLY",
+  "claim_allowed": false,
+  "authority": {
+    "source_bootstrap": "drive:document:1T4OIN2RC1I-KFsdaQTCqieeZUGYBXissWrdrZMG0DN8",
+    "current_state": "drive:document:1d0J5SkF2S2emBq6jLuTkhYVaSOQiWazJWyRCTMJ-iRI",
+    "ledger": "drive:document:1NEU7lg7iUZf1u7lX-SEKuc-knSDGlF5gOx7qzXcJ1yc",
+    "corpus_source": "drive:folder:1S0DaA9ByFeL9wdPmvDgd3CCEe3Jcj7c2",
+    "corpus_scope": "NOVOEXPORT_G2_51_JSON_MIXED_ORIGIN_018",
+    "github_boundary": "CODE_SPEC_TESTS_ONLY_NO_RAW_CORPUS",
+    "producer_map": [
+      "RafPolimata:tools/rafbbs/rafbbs_crc32_core.h",
+      "RafPolimata:Apkc/fmt_zip.h",
+      "RafPolimata:freestanding/include/raf_fs_numa_plan.h",
+      "Mapa:docs/ZIPRAF_CONTENT_PAGE_EXECUTION_GRAPH_V1.md",
+      "Rafaelia_Private:docs/library_audit/2026-09-18/RAFAELIA_LIBRARY_AUDIT_RECEIPT.md"
+    ],
+    "bitghost_exact_source": "TOKEN_VAZIO_NOT_LOCATED_AS_CODE"
+  },
+  "engine": {
+    "level0": "incubator/omega_librarian_l0/omega_gate.c",
+    "data_contract": "source_file_id+account_alias+revision+epoch+sha256_exact_bytes+acl_scope+TTL+parent_receipt",
+    "max_bytes_per_chunk": 4096,
+    "input_source": "caller_buffer_only",
+    "single_worker_default": true,
+    "max_inflight_logical_jobs": 1,
+    "physical_cpu_core_pinning": false,
+    "memory_policy": "OS_MANAGED_CACHES_L1_L2_L3_NOT_SOFTWARE_ALLOCATORS",
+    "simd": "SCALAR_DEFAULT_NEON_ONLY_HOST_DETECTED_TESTED_AND_BENCHMARKED",
+    "crc": "IEEE_CRC32_C_PATH_REFERENCES_RAFPOLIMATA__SHA256_FOR_IDENTITY",
+    "crc32c_distinct_polynomial": true,
+    "nio": "HOSTED_JAVA_ANDROID_BOUNDARY_IF_IMPLEMENTED",
+    "gpu": "NOT_ENABLED_UNTIL_BENCHMARK_DRIVER_GPU_BUFFER_COST_AND_PERMISSION_RECEIPTS",
+    "numa": "NOT_ENABLED_UNTIL_REAL_TOPOLOGY_AND_PAGE_PLACEMENT_EVIDENCE",
+    "ttl": "HOST_SUPPLIED_MONOTONIC_TICKS_NOT_A_CORE_TIMER",
+    "erasure_recovery": "NOT_PROVEN__NO_HUFFMAN_ECC_CONFLATION"
+  },
+  "stages": [
+    {
+      "step": 0,
+      "id": "DISCOVER",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "IDENTIFIED_ACCOUNT_FILE_ID_REVISION_AND_ACL",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 1,
+      "id": "FETCH_WINDOW",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "EXACT_WINDOW_BYTES_AND_VERSION",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 2,
+      "id": "INDEX_BYTES",
+      "io": "FREESTANDING_L0_AND_PRODUCER_PARSERS",
+      "proof": "CRC32_PLUS_SHA256_AND_FORMAT_BOUNDS",
+      "state": "GATE_CORE_ONLY"
+    },
+    {
+      "step": 3,
+      "id": "CLASSIFY",
+      "io": "BOUNDED_HEURISTIC_HOST",
+      "proof": "CANDIDATE_RELATIONS_NOT_CAUSALITY",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 4,
+      "id": "STAGE_IMMUTABLE",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "PRIVATE_ACL_ETAG_DIGEST_REVISION",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 5,
+      "id": "READBACK",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "MATCH_WRITTEN_BYTES_ACCOUNT_REVISION_AND_SHA256",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 6,
+      "id": "APPEND_RECEIPT",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "PARENT_HASH_PREVIOUS_RECEIPT_AND_NEW_COMMIT",
+      "state": "SPECIFIED_NOT_IMPLEMENTED"
+    },
+    {
+      "step": 7,
+      "id": "PROMOTE_POINTER",
+      "io": "ANDROID_DRIVE_ADAPTER",
+      "proof": "INDEPENDENT_REVIEW_SERVER_POLICY_AND_ROLLBACK",
+      "state": "BLOCKED_PROVIDER_EVIDENCE"
+    }
+  ],
+  "policy": {
+    "keep_corpus_in_drive": true,
+    "write_only_to_explicitly_authorized_private_folder": true,
+    "never_overwrite_raw_input": true,
+    "no_auto_delete": true,
+    "no_code_self_merge": true,
+    "no_github_private_raw_upload": true,
+    "zero_trust_fail_closed": true,
+    "token_void_not_zero": true,
+    "no_fabricated_observations": true,
+    "append_only_receipts": true,
+    "write_snapshot_before_pointer_switch": true,
+    "rollback": "REPOINT_TO_PREVIOUS_VERIFIED_SNAPSHOT_NO_DELETION",
+    "idempotency_key": "SHA256(account_alias||file_id||source_revision||schema_version||operation_id)",
+    "strict_privacy": "NO_SOURCE_BODY_IN_LOGS_OR_PUBLIC_REPOS",
+    "retry": "BOUNDED_BACKOFF_RETRY_AFTER_AUTH_AND_ETAG_RECHECK_NO_DUPLICATE_COMMIT",
+    "review_required_for_stale_or_contradictory_source": true
+  },
+  "relation_types": [
+    "DIRECT_REFERENCE",
+    "TEMPORAL_PREDECESSOR",
+    "DOMAIN_COOCCURRENCE_CANDIDATE",
+    "INFERRED_HYPOTHESIS",
+    "ORTHOGONAL_AXIS",
+    "TRANSVERSAL_BRIDGE",
+    "CONTEXTUAL_DEPENDENCY",
+    "PROVENANCE_SOURCE",
+    "EVIDENCE_FOR",
+    "CONTRADICTS",
+    "SUPERSEDES",
+    "UNKNOWN_RELATION"
+  ],
+  "typed_unknowns": [
+    "MISSING_SOURCE",
+    "UNVERIFIED_PROVIDER_AUTHORITY",
+    "NOT_OBSERVED",
+    "MISSING_EVIDENCE",
+    "UNRESOLVED_IDENTIFICATION",
+    "UNSUPPORTED_HARDWARE",
+    "NOT_APPLICABLE",
+    "NUMERIC_ZERO",
+    "DENIED",
+    "EXPIRED",
+    "UNKNOWN_RECOVERY",
+    "UNVERIFIED_SEMANTIC_CLAIM"
+  ],
+  "tests": "bash tools/check_omega_l0.sh",
+  "network_calls_performed_by_config": 0,
+  "provider_writes_performed_by_config": 0
+}

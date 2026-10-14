@@ -1,3 +1,7 @@
+## Ω Bibliotecário Drive — baixo nível, arquitetura de streaming (candidato)
+
+O [pipeline freestanding L0 para organização e indexação de Drive](docs/OMEGA_DRIVE_LIBRARIAN_LOWLEVEL_PIPELINE_V1.md) possui contrato tipado de leitura, CRC/digest, classificação candidata, escrita imutável, readback, recibo e troca reversível de ponteiro. O [plano legível por máquina](config/omega_drive_librarian_plan.v1.json) marca explicitamente **DRIVE_ADAPTER_NOT_IMPLEMENTED**; nenhuma conexão/autorização ou execução real em Android resulta apenas deste SETUP. O núcleo `incubator/omega_librarian_l0/` é freestanding, com `tools/check_omega_l0.sh` para falsificadores; CRC32, NUMA, NEON e ZIPRAF são referenciados dos repositórios produtores, sem copiar corpus privado ou módulos de terceiros. **Não promover até CI exata, revisão e provider enforcement.**
+
 # SETUP_RAFAELIA 🗂️ — Casa de Configuração
 
 **Para iniciantes, mantenedores e auditores.** Cada gaveta responde: o que é, quem pode configurar, onde, como comprovar e como reverter.
