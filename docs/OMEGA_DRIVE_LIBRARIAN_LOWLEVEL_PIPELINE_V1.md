@@ -33,7 +33,7 @@ promote pointer only after required authority + negative-gate evidence
 | NUMA | `RafPolimata/freestanding/include/raf_fs_numa_plan.h` | Planejador consultivo com topologia entregue; **não prova memória física NUMA em Android** |
 | NEON / SIMD | `GaiaPhiRafcode/raf_t7_neon_batch4.c`; `RafPolimata` com código NEON | Habilitar somente após ABI/auxv detectado e testes por modelo; processamento de 4KiB não garante aceleração |
 | ZIPRAF / TTL / paridades | `Mapa/docs/ZIPRAF_CONTENT_PAGE_EXECUTION_GRAPH_V1.md` | Separação STORE vs DEFLATE, TTL epoch e observação ECC. Recuperação física de 25–45% **não demonstrada** |
-| Bit Ghost | `Rafaelia_Private/docs/library_audit/2026-09-18/RAFAELIA_LIBRARY_AUDIT_RECEIPT.md` | `bitghosth.c` não localizado pela auditoria de 18/09; hoje apenas referências textuais, `TOKEN_VAZIO_SOURCE` |
+| BitGhost/BitWalk | `Vectras-VM-Android/Rafaelia/rafaelia_bitwalk.h` (blob `00831ffdca39b0b3ee5820e6d39825b4a33fdae7`, GPL-3.0-only) e `docs/RAFAELIA_BITGHOST_LAYERED_COMPUTE.md` | **Fonte existente e identificada**: visibilidade por camada sem extrair/remover o dado. `bitghosth.c` exato da auditoria privada de 18/09 permanece não localizado; integração ao scheduler e reprodução de perda física continuam `TOKEN_VAZIO`, não copiar código GPL diretamente para SETUP sem análise de licença |
 | GPU | Vectras/Android como candidatos | Driver, ABI, shader/SPIR-V, memória transferida, ganho e consumo não medidos para esta tarefa. **Não ligado por padrão** |
 | NIO / ART / DEX / Java | Android host adapter | Necessariamente runtime hospedado, separado do L0, com buffers controlados e JNI explícito |
 | octa-core, L1/L2/L3 | Hardware/Android | Scheduler e caches geridos pelo SO/CPU; escolher tamanho de buffer, evitar cópias e medir cache misses quando possível. **Não controlar diretamente L1/L2/L3 pela aplicação** |
@@ -99,3 +99,27 @@ adapter (host; account/revision/permissions)
 ```
 
 **Limite importante:** a interface PR7→PR8 acima está especificada, mas **ainda não foi compilada/testada num mesmo HEAD integrado**. O sucesso das duas CIs separadas não comprova funcionamento combinado. O código #7 declara SPDX MIT; o código #8 usa `LicenseRef-RAFCODE-Research-Commercial-0.1`; essa incompatibilidade potencial de distribuição/integração precisa de **decisão expressa do titular antes de qualquer merge**. Requisitos jurídicos/autorais não são resolvidos automaticamente pelo plano. Os dois PRs permanecem draft e não promovidos.
+
+## Atualização de auditoria de fonte — capacidade reservada e BitGhost
+
+Uma análise do `omega_gate_decide` anterior revelou que `attested_features` e
+`advertised_features` podiam conter **o mesmo bit não reconhecido** e ainda
+serem aceitos como uma entrada válida. A V1 sucessora rejeita agora qualquer
+bit fora da máscara nomeada
+`SCALAR | NEON | ARM_CRC32 | GPU | NUMA | HOST_NIO`, mesmo quando ambos os
+campos o anunciam. O teste adversarial verifica os dois casos de bits
+reservados, inclusive que o objeto `out` não é alterado ao recusar.
+
+Isso evita transformar um atributo futuro/desconhecido em capacidade
+atestada por repetição. **Não valida fisicamente** NEON, CRC, GPU, NUMA ou
+escalonamento. A função continua um gate de política e escolha consultiva:
+`ALLOW` não executa leitura/gravação, e `attested_features` continua
+prova host-side cuja origem precisa ser verificada.
+
+BitGhost: `GHOST != ERASED`. Inverter a visão recupera um dado que
+continuou no contêiner; não reconstitui bits efetivamente apagados.
+Huffman/RLE/LZ e códigos de paridade devem ser testados por módulo,
+versão e vetor; a fração recuperável por apagamento depende da redundância,
+posições conhecidas e posto do código, e não é uma garantia universal de
+perda arbitrária de 25–45% dos bits. O documento independente da PR #9
+localiza compressores modernos e separa roundtrip, expansão e FEC.
