@@ -12,14 +12,12 @@ unsigned int omega_gate_decide(const omega_gate_input *in,
                                 omega_gate_output *out) {
  omega_gate_output o;
  unsigned int i;
- const unsigned int *p;
  if (!in || !out) return OMEGA_BAD_INPUT;
  if (in->version!=1u || in->action<OMEGA_READ ||
      in->action>OMEGA_PROMOTE || in->workload_bytes>0x7fffffffu)
   return OMEGA_BAD_INPUT;
  /* All tri-state evidence fields must be valid before a decision. */
- p=&in->source_identified;
- for (i=0u;i<12u;++i) {
+ for (i=0u;i<11u;++i) {
   /* Fixed explicitly laid out adjacent unsigned fields only.
    * Avoid pointer arithmetic over structs: inspect by switch below instead. */
   unsigned int v;
@@ -39,7 +37,6 @@ unsigned int omega_gate_decide(const omega_gate_input *in,
   }
   if (!tri(v)) return OMEGA_BAD_INPUT;
  }
- (void)p;
  if ((in->attested_features & ~in->advertised_features)!=0u)
   return OMEGA_BAD_INPUT;
  o.decision=OMEGA_ALLOW; o.reason=0u; o.route=OMEGA_SCALAR;
@@ -57,7 +54,7 @@ unsigned int omega_gate_decide(const omega_gate_input *in,
   o.decision=decision(in->source_sha256_verified); o.reason=OMEGA_R_DIGEST;
  } else if (in->crc32_verified==OMEGA_NO) {
   o.decision=OMEGA_DENY; o.reason=OMEGA_R_DIGEST;
- } else if (in->erasure_present!=OMEGA_NO &&
+ } else if (in->action>=OMEGA_INDEX && in->erasure_present!=OMEGA_NO &&
            (in->erasure_present==OMEGA_UNKNOWN ||
             in->recovery_verified!=OMEGA_YES)) {
   o.decision=OMEGA_HOLD; o.reason=OMEGA_R_ERASURE;
