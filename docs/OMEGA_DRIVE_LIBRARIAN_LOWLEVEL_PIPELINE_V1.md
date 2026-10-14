@@ -83,3 +83,19 @@ CRC-32 detecta muitos erros acidentais, mas não recupera conteúdo. Estados `BI
 - O dono da execução Android/Termux deverá fornecer adapter real em seu próprio repositório, com permissão explícita, testes de carga, bateria/termia, I/O, latência e rollback.
 
 **R3** = <F_ok: núcleo candidato e contrato, F_gap: teste exato CI + adapter autenticação/readback, GPU/NUMA/NEON hardware e recuperação de perdas, F_next: teste L0 → revisão independente → implementar adapter mínimo no produtor autorizado → receipt físico e Drive>. Nenhuma promoção ou merge automático.
+
+## PR #7 → PR #8: dependência tipada, sem duplicar processamento
+
+A leitura posterior identificou o [PR #7](https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA/pull/7) no mesmo SETUP, baseado no mesmo HEAD anterior, com `raf_bib_begin/raf_bib_feed/raf_bib_stage/raf_bib_ack`, CRC32 IEEE e buffer de 4096 bytes. Esse **é o produtor dos bytes e da prova de stage/ack**. O [PR #8](https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA/pull/8) tem base explicitamente apontada para o branch do PR #7 e fornece apenas o **gate de política `omega_gate_decide`**. Não implementar outro CRC, outro scanner de shard, outra fila de threads nem substituir o parser. A separação de responsabilidades é:
+
+```text
+adapter (host; account/revision/permissions)
+  -> omega_gate_decide READ (pré-condições declaradas)
+  -> PR7 raf_bib_begin/feed/stage (integridade e sequência)
+  -> omega_gate_decide INDEX/WRITE (SHA/ACL/redaction/epoch)
+  -> adapter Drive write + readback real
+  -> PR7 raf_bib_ack (contrato do recibo)
+  -> omega_gate_decide PROMOTE (readback e provider)
+```
+
+**Limite importante:** a interface PR7→PR8 acima está especificada, mas **ainda não foi compilada/testada num mesmo HEAD integrado**. O sucesso das duas CIs separadas não comprova funcionamento combinado. O código #7 declara SPDX MIT; o código #8 usa `LicenseRef-RAFCODE-Research-Commercial-0.1`; essa incompatibilidade potencial de distribuição/integração precisa de **decisão expressa do titular antes de qualquer merge**. Requisitos jurídicos/autorais não são resolvidos automaticamente pelo plano. Os dois PRs permanecem draft e não promovidos.
