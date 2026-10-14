@@ -19,6 +19,19 @@ A investigação do HOTSTATE e das PRs abertas encontrou **dois predecessores na
 
 O artefato da PR #9 é desenho e rotas; **não contém código de execução**. O `SOURCE` de BitGhost está precisamente no header Vectras GPL-3.0-only indicado abaixo. O que permanece `TOKEN_VAZIO` é a integração autorizada e testada, não o localizador do source.
 
+## 0B. Successor de auditoria — compressão/reconstrução já materializadas (2026-10-14)
+
+**Corrige a generalização anterior**: o `Huffman placeholder` em `llamaRafaelia/rafaelia-baremetal/zipraf/raf_zipraf.c` é exclusivo desse arquivo histórico e **não** significa que a compressão RAFAELIA não foi concluída em outros produtores. Antes de escrever motor próprio, escolher entre os artefatos reais:
+
+- [ZIPRAF Ω G1–G11A checkpoint](https://github.com/rafaelmeloreisnovo/ZIPRAF_OMEGA_FULL/blob/ba1fe51f9d88cfbb6effaaac22df6d5ca77543e1/docs/ZIPRAF_G1_G11A_CHECKPOINT_2026-08-11.md): reports ZIP/STORE + SHA/CRC + byte-identical roundtrip, BITRAF V1 and ARM32 physical verifier. This is **packaging/integrity**, not proof of positive compression ratio.
+- [Bitraf64 v1.4 RLE2](https://github.com/rafaelmeloreisnovo/ZIPRAF_OMEGA_FULL/blob/ba1fe51f9d88cfbb6effaaac22df6d5ca77543e1/bitraf64_rle_v2.py) + [container integration](https://github.com/rafaelmeloreisnovo/ZIPRAF_OMEGA_FULL/blob/ba1fe51f9d88cfbb6effaaac22df6d5ca77543e1/bitraf64_compressor_v14.py): escaped literal 0xFF, bounded decode and version-separated v1.3 legacy. The *legacy* v1.3 collision `FF 41 42` is a documented counterexample, not a current v1.4 failure. The v1.4 `hash_blake3` label remains simulated; no genuine BLAKE3 claim. The RLE2 raw 256-byte all-symbols example expands to 257 raw / 344 Base64 bytes before BRAF metadata; storage ratio is data-dependent.
+- [Rafaelia_Private LZ4 C](https://github.com/rafaelmeloreisnovo/Rafaelia_Private/blob/d95a54295116b4d36a2a95c24be4c2ca4b9a7745/src/hd_cache/compress_lz4.c) + [phase-1 receipt](https://github.com/rafaelmeloreisnovo/Rafaelia_Private/blob/d95a54295116b4d36a2a95c24be4c2ca4b9a7745/docs/phase1/PHASE1_IMPLEMENTATION_RECEIPT.md): self-contained block compression and adversarial roundtrip locally verified; `malloc`/libc dependencies in this module mean not L0 freestanding as-is.
+- [RIVER-7 [7,4,3] erasure reconstruction](https://github.com/rafaelmeloreisnovo/ChipQuantum/blob/825321b85efdd46bf411e0f6013b9df0fdacf020/experiments/river7_dual_transport/simulate_linear_erasure_743.py): independent GF(2) rank enumeration yields 7/7 one-erasure, 21/21 two-erasure, 28/35 three-erasure patterns. Therefore **28.6% symbol erasure is guaranteed**, while 42.9% is conditional, not arbitrary corrupted bits. Burst-placement success is simulation-scoped, not physical memory repair. Related model: [BITRAF loss-vector index](https://github.com/rafaelmeloreisnovo/Mapa/blob/3a38e9f6fc7dd04169d13c42a1f274a4530fdc31/indices/BITRAF_LOSS_VECTOR_MODEL_V1.md).
+
+Risk boundaries: `STORE != COMPRESS`, `CRC != REPAIR`, `erasure_location_known != bit_flip_unknown`, `synthetic_rank_proof != physical_device_recovery`. The inherited Bitraf64 decompressor can return `data` with `verified=false`; hosted callers must enforce verified before accepting. Do not deduplicate producer implementations merely by algorithm family or copy incompatible licenses.
+
+The prior `ZIPRAF prototype` table row is retained as a narrow per-file observation. **Status**: compression implemented in multiple branches, but a universal completion/ratio/physical-recovery claim remains gated by producer version, tested source, input class and exact-head receipts. PR9 owns only the Drive librarian adapter design, **not** these codecs.
+
 ## 1. Source-side components; do not duplicate
 
 | Role | Existing producer and source | Verified scope / remaining gate |
