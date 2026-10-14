@@ -1,0 +1,55 @@
+name: RAFAELIA Drive Librarian L0 (source-only)
+
+on:
+  pull_request:
+    paths:
+      - 'experimental/drive_librarian_l0/**'
+      - 'tests/test_raf_drive_librarian_l0.c'
+      - 'docs/DRIVE_LIBRARIAN_FREESTANDING_V1.md'
+      - '.github/workflows/drive-librarian-l0.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  l0-freestanding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout (read only)
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0 pinned
+        with:
+          persist-credentials: false
+      - name: Compile pure object with zero hosted includes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/raf-bib
+          cc -std=c11 -O2 -Wall -Wextra -Werror -Wshadow \
+             -ffreestanding -fno-builtin -fno-stack-protector \
+             -nostdinc -Iexperimental/drive_librarian_l0 \
+             -c experimental/drive_librarian_l0/raf_bib_l0.c \
+             -o /tmp/raf-bib/raf_bib_l0.o
+          if nm --undefined-only /tmp/raf-bib/raf_bib_l0.o | grep -q .; then
+            nm --undefined-only /tmp/raf-bib/raf_bib_l0.o
+            echo 'RAFAELIA_LIBRARY_L0_NO_EXTERNAL_IMPORTS=FAIL'
+            exit 1
+          fi
+          echo 'RAFAELIA_LIBRARY_L0_NO_EXTERNAL_IMPORTS=PASS_OBJECT_SCOPED'
+      - name: CRC and state-machine falsifiers (hosted harness)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cc -std=c11 -O2 -Wall -Wextra -Werror -Wshadow \
+             -Iexperimental/drive_librarian_l0 \
+             experimental/drive_librarian_l0/raf_bib_l0.c \
+             tests/test_raf_drive_librarian_l0.c \
+             -o /tmp/raf-bib/raf_bib_test
+          /tmp/raf-bib/raf_bib_test
+      - name: Delimit what was NOT tested
+        run: |
+          echo 'REAL_DRIVE_AUTH_WRITE_READBACK=NOT_RUN'
+          echo 'ANDROID_ARMV7_ARM64_CACHE_GPU_NUMA=NOT_RUN'
+          echo 'HARDWARE_CRC32=NOT_RUN'
+          echo 'HUMAN_REVIEW_AND_PROVIDER_ENFORCEMENT=NOT_RUN'
