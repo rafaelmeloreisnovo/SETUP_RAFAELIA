@@ -8,6 +8,17 @@ Read order: [START HERE Ω V2.2](https://docs.google.com/document/d/1T4OIN2RC1I-
 Invariants: `SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM`; `TOKEN_VAZIO != 0`; `IMPLEMENTED_UNTESTED != PASS`.
 Do not copy private Drive payload into GitHub. A Drive pointer is not byte identity or proof of user authority. Current setup PLAN_ONLY cannot authorize Drive-wide traversal.
 
+## 0A. Reconciliação de PRs existentes — esta proposta NÃO produz novo L0
+
+A investigação do HOTSTATE e das PRs abertas encontrou **dois predecessores na mesma área**, que têm prioridade sobre este contrato documental:
+
+- [SETUP PR #7](https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA/pull/7), head `29830006d045157c8cb009606877e825de2cc456`: `experimental/drive_librarian_l0/` com `BEGIN→FEED→STAGE→ACK`, CRC32 C incremental, até 4096 bytes e falsificadores. Runs 38512496106 + 38512495989 foram relatados como SUCCESS exact-head, apenas escopo objeto/host.
+- [SETUP PR #8](https://github.com/rafaelmeloreisnovo/SETUP_RAFAELIA/pull/8): controlador de **política complementar** `incubator/omega_librarian_l0/`, `ALLOW/DENY/HOLD`, revisão/epoch/TTL/readback e escolha consultiva de caminho. Run 38512625550 SUCCESS objeto/host segundo receipt da PR; depende de interface/autoridade de PR #7.
+
+**Decisão de deduplicação:** esta PR #9 é somente a ponte de arquitetura L1 Google Drive ↔ Android e especificação de indexação semântica/ATLAS. NÃO introduzir implementação concorrente de CRC, buffer, estado `BEGIN/FEED/STAGE/ACK`, autorização ou BitGhost. Atestação de L0 e interoperabilidade PR7→PR8 exigem revisão independente; PR7/PR8 permanecem DRAFT/HOLD até os gates próprios. Se um produtor consolidar o núcleo fora de SETUP, atualizar referência por successor, nunca fingir transferência de autoria.
+
+O artefato da PR #9 é desenho e rotas; **não contém código de execução**. O `SOURCE` de BitGhost está precisamente no header Vectras GPL-3.0-only indicado abaixo. O que permanece `TOKEN_VAZIO` é a integração autorizada e testada, não o localizador do source.
+
 ## 1. Source-side components; do not duplicate
 
 | Role | Existing producer and source | Verified scope / remaining gate |
