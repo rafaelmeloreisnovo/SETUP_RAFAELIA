@@ -9,6 +9,7 @@
 | Entender sem termos técnicos | [Guia de 10 minutos](docs/GUIA_RAPIDO.md) |
 | Configurar GitHub, rulesets, reviewers, secrets, vars e CodeScan | [Settings passo a passo](docs/PROVIDER_SETTINGS.md) |
 | Integrar Google Drive sem expor dados | [Guia Drive](docs/GOOGLE_DRIVE.md) |
+| Federar biblioteca Mapa/Drive/alphaXiv e auditar APK ARM32 | [Gates, dupla entrada e rollback (PLAN_ONLY)](docs/FEDERATED_BIBLIO_PRIVACY_ARM32_GATES_V1.md) |
 | Auditar direitos, Zero Trust, risco, evidência e rollback | [Matriz e receipts](docs/CONTROLES_E_RECEIPTS.md) |
 | Fazer revisão de ameaças | [Privacidade e segurança](docs/AMEACAS_E_LIMITES.md) |
 
