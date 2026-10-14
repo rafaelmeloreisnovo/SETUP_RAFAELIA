@@ -72,9 +72,11 @@
       "priority": "P1",
       "access": "DEVICE_OWNER_ONLY",
       "gate": "EXACT_APK_PHYSICAL_DEVICE",
-      "state": "IMPLEMENTED_UNTESTED",
+      "state": "TOKEN_VAZIO",
       "evidence": "APK SHA-256/ABI/install/launch/receipt/device identity consented",
-      "rollback": "disable_adapter_and_restore_verified_app"
+      "rollback": "disable_adapter_and_restore_verified_app",
+      "gap_type": "MISSING_PHYSICAL_EXECUTION_RECEIPT",
+      "claim_allowed": false
     },
     {
       "id": "PRODUCER_CI",
@@ -126,5 +128,20 @@
     "state": "DOCUMENTED_NOT_EXECUTED",
     "F_gap": "provider/CI/device need scoped physical proof",
     "F_next": "negative falsifier tests, exact SHA and independent review"
+  },
+  "runtime_claim_boundary": {
+    "source_only_l0": "PR #7/#8 producer branch proof is not device proof",
+    "apk_artifact": "TOKEN_VAZIO",
+    "arm32_device": "TOKEN_VAZIO",
+    "host_adapter": "TOKEN_VAZIO",
+    "claim_allowed": false
+  },
+  "gate_evidence_policy": {
+    "offline_contract_test": "PASS_SCOPED_MODEL_ONLY",
+    "external_provider_enforcement": "HOLD_UNTIL_LIVE_READBACK",
+    "independent_reviewer": "TOKEN_VAZIO",
+    "public_pr_draft_is_gate": false,
+    "provider_denied_draft_conversion": "HOLD_AUTHORITY",
+    "claim_allowed": false
   }
 }
