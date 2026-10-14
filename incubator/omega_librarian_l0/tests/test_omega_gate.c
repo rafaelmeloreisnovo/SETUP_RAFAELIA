@@ -78,6 +78,18 @@ int main(void) {
  o.decision=99u;o.reason=88u;o.route=77u;o.crc_route=66u;
  EQ("capability_spoof",omega_gate_decide(&x,&o),OMEGA_BAD_INPUT);
  EQ("no_output_clobber_on_bad_input",o.decision,99u);
+ /* Previous V1 passed a forged future bit when BOTH masks contained it.
+  * Unknown architecture capability != proven execution or authorization. */
+ x.attested_features=0x40000000u;
+ x.advertised_features=0x40000000u;
+ o.decision=99u;o.reason=88u;o.route=77u;o.crc_route=66u;
+ EQ("unrecognized_but_attested_feature",omega_gate_decide(&x,&o),OMEGA_BAD_INPUT);
+ EQ("unrecognized_feature_no_output_write",o.decision,99u);
+ x.attested_features=0u;
+ o.decision=99u;
+ EQ("unrecognized_advertised_feature",omega_gate_decide(&x,&o),OMEGA_BAD_INPUT);
+ EQ("unrecognized_advertised_no_output_write",o.decision,99u);
+ x.advertised_features=OMEGA_NEON|OMEGA_ARM_CRC32|OMEGA_GPU|OMEGA_NUMA|OMEGA_HOST_NIO;
  x.attested_features=0u;x.source_identified=3u;
  EQ("tri_state_invalid",omega_gate_decide(&x,&o),OMEGA_BAD_INPUT);
  x.source_identified=OMEGA_YES;x.version=3u;
