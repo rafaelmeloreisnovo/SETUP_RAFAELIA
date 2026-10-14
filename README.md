@@ -43,6 +43,10 @@ A CI testa apenas a **estrutura do plano**. Não consulta APIs, não lê ou escr
 
 [Catálogo tipado](config/setup-catalog.v1.json) — nomes de controls/credentials são **metadados**, jamais provas de presença. O repositório produtor governa implementação, o Drive governa memória e recibos. **Licença MIT original permanece preservada.**
 
+## Ω V4 — Bibliotecário Drive: freestanding L0 e adapter hospedado
+
+A [arquitetura de custódia e processamento incremental](docs/DRIVE_LIBRARIAN_FREESTANDING_V1.md) contém o experimento `experimental/drive_librarian_l0/`: máquina de estados `BEGIN → FEED → STAGE → DRIVE-READBACK-ACK`, CRC32-IEEE e decisão `ALLOW/DENY/UNKNOWN` com núcleo C **freestanding**. A biblioteca pura não autentica nem grava no Drive: NIO/JNI/ART/TLS/OAuth continuam numa fronteira Android ainda `NOT_IMPLEMENTED`. Os testes de fonte não liberam produção ou merge. Contratos de NEON, GPU, caches, NUMA, CRC de hardware e compressão são condicionais às evidências do dispositivo e aos gates de integridade.
+
 ## Ω V3 — Inventário transversal dos núcleos já existentes (auditoria documental)
 
 A [auditoria freestanding da federação de 13/10/2026](docs/FEDERATION_EXISTING_FREESTANDING_EVIDENCE_20261013.md) cruza produtores reais (RafPolimata, RafGitTools, Vectras, Termux App/Packages/API, Frida, Mapa, Gaia, RMRCTI), geometria NEON de 4096 **bits versus bytes**, custódia e proteção do GitHub. **PLAN_ONLY**, não move/recria núcleos, não legitima binários físicos nem altera direitos e settings; inconsistências e fontes ausentes permanecem tipadas.
