@@ -29,5 +29,7 @@ jobs:
         run: python3 tools/check_gaps.py
       - name: Synthetic negative falsifiers
         run: python3 -m unittest discover -s tests -v
+      - name: Freestanding Omega librarian L0 (host synthetic only)
+        run: bash tools/check_omega_l0.sh
       - name: State scope
         run: echo "CI PASS only for offline plan; no provider settings, secrets, Drive permissions or runtime activated."
