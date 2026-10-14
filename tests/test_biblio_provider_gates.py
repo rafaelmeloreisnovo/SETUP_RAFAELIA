@@ -6,10 +6,12 @@ import copy
 import json
 import unittest
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / "config" / "biblio-provider-gates.v1.json"
+sys.path.insert(0, str(ROOT / "tools"))
 from validate_biblio_provider_gates import inspect
+CONTRACT = ROOT / "config" / "biblio-provider-gates.v1.json"
 
 
 class TestBiblioProviderGates(unittest.TestCase):
