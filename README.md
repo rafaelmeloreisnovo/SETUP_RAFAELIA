@@ -43,6 +43,10 @@ A CI testa apenas a **estrutura do plano**. Não consulta APIs, não lê ou escr
 
 [Catálogo tipado](config/setup-catalog.v1.json) — nomes de controls/credentials são **metadados**, jamais provas de presença. O repositório produtor governa implementação, o Drive governa memória e recibos. **Licença MIT original permanece preservada.**
 
+## Ω V3 — Inventário transversal dos núcleos já existentes (auditoria documental)
+
+A [auditoria freestanding da federação de 13/10/2026](docs/FEDERATION_EXISTING_FREESTANDING_EVIDENCE_20261013.md) cruza produtores reais (RafPolimata, RafGitTools, Vectras, Termux App/Packages/API, Frida, Mapa, Gaia, RMRCTI), geometria NEON de 4096 **bits versus bytes**, custódia e proteção do GitHub. **PLAN_ONLY**, não move/recria núcleos, não legitima binários físicos nem altera direitos e settings; inconsistências e fontes ausentes permanecem tipadas.
+
 ## Ω V2 — Lacunas tipadas e proveniência
 
 A [matriz de lacunas](config/gap-register.v1.json) liga **18 controles** ao motivo de incerteza, à fonte observada e ao experimento mínimo que pode falsificá-la. O [guia de proveniência](docs/PROVENIENCIA_E_LACUNAS.md) explica os limites dos fatos do GitHub e o [validador offline](tools/check_gaps.py) verifica a cobertura 1:1.
