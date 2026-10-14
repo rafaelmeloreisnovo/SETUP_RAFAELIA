@@ -1,0 +1,130 @@
+{
+  "schema": "rafaelia.setup.federated-biblio-gates/v1",
+  "mode": "PLAN_ONLY",
+  "claim_allowed": false,
+  "root_docs": [
+    "docs/FEDERATED_BIBLIO_PRIVACY_ARM32_GATES_V1.md",
+    "docs/GOOGLE_DRIVE.md",
+    "docs/PROVENIENCIA_E_LACUNAS.md"
+  ],
+  "extension_authority": "Mapa:biblioteconomia/24_BIBLIOFLOW_FEDERATED_51SHARDS_SYMBOLS_ARM32_V1.md",
+  "no_secret_values": true,
+  "private_ids_in_public": false,
+  "auto_merge": false,
+  "source_identity_fields": [
+    "provider",
+    "account_alias",
+    "provider_id",
+    "revision_or_commit",
+    "digest_with_scope",
+    "source_time",
+    "observed_time",
+    "access_class"
+  ],
+  "cases": [
+    {
+      "id": "GITHUB_PUBLIC",
+      "priority": "P1",
+      "access": "PUBLIC_ONLY",
+      "gate": "PUBLIC_CONTENT_SANITIZED",
+      "state": "TOKEN_VAZIO",
+      "evidence": "diff review and provider readback exact SHA",
+      "rollback": "revert_scoped_commit"
+    },
+    {
+      "id": "GITHUB_PRIVATE",
+      "priority": "P0",
+      "access": "PRIVATE_AUTHORIZED",
+      "gate": "NO_PRIVATE_DATA_COPY",
+      "state": "TOKEN_VAZIO",
+      "evidence": "redacted receipt in private Drive only",
+      "rollback": "revoke_grant_then_reconcile"
+    },
+    {
+      "id": "DRIVE_PUBLIC",
+      "priority": "P0",
+      "access": "APPROVED_PUBLICATION",
+      "gate": "EXPLICIT_DISCLOSURE_APPROVAL",
+      "state": "TOKEN_VAZIO",
+      "evidence": "file permission readback and responsible approval",
+      "rollback": "restore_prior_visibility_with_receipt"
+    },
+    {
+      "id": "DRIVE_PRIVATE",
+      "priority": "P0",
+      "access": "PRIVATE_OWNER",
+      "gate": "APPEND_ONLY_CUSTODY",
+      "state": "TOKEN_VAZIO",
+      "evidence": "provider id/revision and byte hash when accessible",
+      "rollback": "append_successor_restore_projection"
+    },
+    {
+      "id": "ALPHAXIV",
+      "priority": "P0",
+      "access": "FOLDER_SHARE_STATUS",
+      "gate": "PRIVATE_NOTES_NONDISCLOSURE",
+      "state": "TOKEN_VAZIO",
+      "evidence": "real sharing_status and paper locator",
+      "rollback": "undo_unapproved_publication_authorized"
+    },
+    {
+      "id": "APK_ARM32",
+      "priority": "P1",
+      "access": "DEVICE_OWNER_ONLY",
+      "gate": "EXACT_APK_PHYSICAL_DEVICE",
+      "state": "IMPLEMENTED_UNTESTED",
+      "evidence": "APK SHA-256/ABI/install/launch/receipt/device identity consented",
+      "rollback": "disable_adapter_and_restore_verified_app"
+    },
+    {
+      "id": "PRODUCER_CI",
+      "priority": "P1",
+      "access": "PER_PRODUCER",
+      "gate": "EXACT_HEAD_REVIEW_CODESAN_ENFORCEMENT",
+      "state": "TOKEN_VAZIO",
+      "evidence": "exact_SHA job/status with negative test, distinct review and settings readback",
+      "rollback": "close_draft_no_merge"
+    }
+  ],
+  "typed_empty_states": [
+    "TOKEN_VAZIO",
+    "NOT_APPLICABLE",
+    "MISSING_OBSERVATION",
+    "KNOWN_ABSENCE",
+    "INVALID_DATE",
+    "UNDEFINED_SEMANTIC",
+    "REDACTED_BY_PRIVACY"
+  ],
+  "receipts": {
+    "source": [
+      "source_provider",
+      "provider_id",
+      "revision_or_exact_commit",
+      "digest_scope",
+      "observed_at",
+      "access"
+    ],
+    "transition": [
+      "actor",
+      "operation",
+      "predecessor",
+      "successor",
+      "evidence",
+      "gate",
+      "rollback",
+      "next_probe"
+    ]
+  },
+  "promotion_requirements": [
+    "privacy_gate_pass",
+    "provider_enforcement_pass",
+    "independent_review_pass",
+    "exact_head_checks_pass",
+    "producer_runtime_proof_if_applicable"
+  ],
+  "r3": {
+    "state": "DOCUMENTED_NOT_EXECUTED",
+    "F_gap": "provider/CI/device need scoped physical proof",
+    "F_next": "negative falsifier tests, exact SHA and independent review"
+  }
+}
