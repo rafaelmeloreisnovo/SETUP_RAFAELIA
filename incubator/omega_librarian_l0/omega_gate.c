@@ -37,6 +37,12 @@ unsigned int omega_gate_decide(const omega_gate_input *in,
   }
   if (!tri(v)) return OMEGA_BAD_INPUT;
  }
+ /* Falsifier: a host cannot invent future capability bits, even when
+  * the same unknown bits appear in both advertised and attested masks. */
+ if (((in->advertised_features | in->attested_features) &
+      ~(OMEGA_SCALAR | OMEGA_NEON | OMEGA_ARM_CRC32 | OMEGA_GPU |
+        OMEGA_NUMA | OMEGA_HOST_NIO)) != 0u)
+  return OMEGA_BAD_INPUT;
  if ((in->attested_features & ~in->advertised_features)!=0u)
   return OMEGA_BAD_INPUT;
  o.decision=OMEGA_ALLOW; o.reason=0u; o.route=OMEGA_SCALAR;
