@@ -29,7 +29,9 @@
       "gate": "PUBLIC_CONTENT_SANITIZED",
       "state": "TOKEN_VAZIO",
       "evidence": "diff review and provider readback exact SHA",
-      "rollback": "revert_scoped_commit"
+      "rollback": "revert_scoped_commit",
+      "authority": "owner/repo admin plus eligible independent reviewer",
+      "falsifier": "private source ID, text, or secret in public diff"
     },
     {
       "id": "GITHUB_PRIVATE",
@@ -38,7 +40,9 @@
       "gate": "NO_PRIVATE_DATA_COPY",
       "state": "TOKEN_VAZIO",
       "evidence": "redacted receipt in private Drive only",
-      "rollback": "revoke_grant_then_reconcile"
+      "rollback": "revoke_grant_then_reconcile",
+      "authority": "repository owner with explicit scoped approval",
+      "falsifier": "private source replicated to public repository"
     },
     {
       "id": "DRIVE_PUBLIC",
@@ -47,7 +51,9 @@
       "gate": "EXPLICIT_DISCLOSURE_APPROVAL",
       "state": "TOKEN_VAZIO",
       "evidence": "file permission readback and responsible approval",
-      "rollback": "restore_prior_visibility_with_receipt"
+      "rollback": "restore_prior_visibility_with_receipt",
+      "authority": "Drive file owner and authorized disclosure reviewer",
+      "falsifier": "public ACL without disclosure approval"
     },
     {
       "id": "DRIVE_PRIVATE",
@@ -56,7 +62,9 @@
       "gate": "APPEND_ONLY_CUSTODY",
       "state": "TOKEN_VAZIO",
       "evidence": "provider id/revision and byte hash when accessible",
-      "rollback": "append_successor_restore_projection"
+      "rollback": "append_successor_restore_projection",
+      "authority": "Drive file owner, account scoped",
+      "falsifier": "missing predecessor revision/hash scope or unaudited overwrite"
     },
     {
       "id": "ALPHAXIV",
@@ -65,16 +73,22 @@
       "gate": "PRIVATE_NOTES_NONDISCLOSURE",
       "state": "TOKEN_VAZIO",
       "evidence": "real sharing_status and paper locator",
-      "rollback": "undo_unapproved_publication_authorized"
+      "rollback": "undo_unapproved_publication_authorized",
+      "authority": "alphaXiv folder owner sharing-status authority",
+      "falsifier": "not_shared notes exposed or article-public interpreted as folder-public"
     },
     {
       "id": "APK_ARM32",
       "priority": "P1",
       "access": "DEVICE_OWNER_ONLY",
       "gate": "EXACT_APK_PHYSICAL_DEVICE",
-      "state": "IMPLEMENTED_UNTESTED",
+      "state": "TOKEN_VAZIO",
       "evidence": "APK SHA-256/ABI/install/launch/receipt/device identity consented",
-      "rollback": "disable_adapter_and_restore_verified_app"
+      "rollback": "disable_adapter_and_restore_verified_app",
+      "gap_type": "MISSING_PHYSICAL_EXECUTION_RECEIPT",
+      "claim_allowed": false,
+      "authority": "Android device owner + producing repository",
+      "falsifier": "physical-pass claimed without APK SHA, ABI32 and device receipt"
     },
     {
       "id": "PRODUCER_CI",
@@ -83,7 +97,9 @@
       "gate": "EXACT_HEAD_REVIEW_CODESAN_ENFORCEMENT",
       "state": "TOKEN_VAZIO",
       "evidence": "exact_SHA job/status with negative test, distinct review and settings readback",
-      "rollback": "close_draft_no_merge"
+      "rollback": "close_draft_no_merge",
+      "authority": "producer repository and GitHub branch ruleset admins",
+      "falsifier": "PASS from old SHA, absent required check, unprotected main or missing independent review"
     }
   ],
   "typed_empty_states": [
@@ -126,5 +142,20 @@
     "state": "DOCUMENTED_NOT_EXECUTED",
     "F_gap": "provider/CI/device need scoped physical proof",
     "F_next": "negative falsifier tests, exact SHA and independent review"
+  },
+  "runtime_claim_boundary": {
+    "source_only_l0": "PR #7/#8 producer branch proof is not device proof",
+    "apk_artifact": "TOKEN_VAZIO",
+    "arm32_device": "TOKEN_VAZIO",
+    "host_adapter": "TOKEN_VAZIO",
+    "claim_allowed": false
+  },
+  "gate_evidence_policy": {
+    "offline_contract_test": "PASS_SCOPED_MODEL_ONLY",
+    "external_provider_enforcement": "HOLD_UNTIL_LIVE_READBACK",
+    "independent_reviewer": "TOKEN_VAZIO",
+    "public_pr_draft_is_gate": false,
+    "provider_denied_draft_conversion": "HOLD_AUTHORITY",
+    "claim_allowed": false
   }
 }
